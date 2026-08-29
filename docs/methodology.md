@@ -1,6 +1,20 @@
-# Six steps
+# 文标技术标 6 步（开源版摘要）
 
-1 parse 2 score points 3 catalog 4 length 5 draft 6 check
+完整版见官网：https://aiwenbiao.cn/guides/how-to-write-tech-bid
 
-https://aiwenbiao.cn/guides/how-to-write-tech-bid
-https://aiwenbiao.cn
+## 步骤
+
+1. **解析招标文件**：抽出废标项、响应表、评分表、交付与工期。
+2. **拆评分点**：每条评分点变成「可写章节 + 证据类型 + 风险」。
+3. **定目录**：目录对齐评分点，先结构后文字。
+4. **字数分配**：按分值粗分篇幅，避免高分项写太短。
+5. **分章草稿**：一次只写一章，引用已确认事实。
+6. **风险检查**：对照废标项与评分点做提交前清单。
+
+## 原则
+
+- 先结构后成文
+- 事实可核验
+- 人工终审
+
+产品入口：https://aiwenbiao.cn
