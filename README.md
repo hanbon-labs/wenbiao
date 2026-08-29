@@ -4,161 +4,180 @@
 
 <h1 align="center">wenbiao-open-prompts</h1>
 
-<p align="center"><strong>文标开源</strong>：招标文件解析 / 评分点拆解 / 技术标目录与章节草稿 Prompt 套件</p>
+<p align="center">
+  <strong>文标开源</strong>：面向招投标的 <strong>harness agent</strong> 工作流说明<br/>
+  + 招标解析 / 评分点拆解 / 目录与章节草稿 Prompt 套件
+</p>
 
 <p align="center">
   <a href="https://aiwenbiao.cn">官网</a> ·
+  <a href="docs/harness-agent.md">harness agent 详解</a> ·
   <a href="https://aiwenbiao.cn/guides">方法文</a> ·
-  <a href="https://aiwenbiao.cn/sources">官方发布</a> ·
-  <a href="LICENSE">MIT License</a>
+  <a href="LICENSE">MIT</a>
 </p>
 
 ---
 
-## 这是什么
+## 重点：什么是 harness agent
 
-`wenbiao-open-prompts` 是面向招投标场景的 **Prompt 工具箱**：把「读标 → 拆分 → 定目录 → 分章写 → 风险检」这套方法，用可复制的 Prompt 形式开源出来。
+**harness agent** 是工作流架构标签，不是英文产品名。产品正式名称是 **文标**（[aiwenbiao.cn](https://aiwenbiao.cn)）。
 
-你可以：
+一句话：
 
-- 拿到 **DeepSeek / GPT / Claude / 本地模型** 里直接用
-- 作为团队内部的标准写作流程模板
-- 先在本仓库学会「先结构后成文」，再到 [文标官网](https://aiwenbiao.cn) 用完整工作流出稿
+> **Harness Agent = 意图路由 + 阶段化 Run/Job + Worker 执行 + 事件可观测 + 人工审稿闸口。**
 
-## 解决什么问题
+它把写标书从「一个聊天框生成全书」，改成可排队、可取消、可人工介入的六步工作流：
 
-写标书最耗时的往往不是打字，而是：
+**招标解析 → 评分拆解 → 目录审定 → 标书写作 → 废标检查 → 交付导出**
 
-1. **读不清招标文件**：废标项、响应表、评分表散落在几百页里
-2. **评分点没拆透**：写了很多，但对不上分，或高分项写太浅
-3. **一句话生成全书**：结构偏了就全盘返工，成本极高
+完整架构图、时序图、组件说明见：
 
-本套件的核心思想是：**先拆点、先目录、再分章写草稿**。
+**[docs/harness-agent.md](docs/harness-agent.md)**（建议先读这一篇）
 
-## 技术标 6 步（与 Prompt 对应）
+### 总览图
 
-| 步骤 | 做什么 | Prompt |
-| --- | --- | --- |
-| 1 解析 | 抽废标项 / 响应表 / 评分摘要 | [01-tender-parse.md](prompts/01-tender-parse.md) |
-| 2 拆分 | 评分点 → 可写章节 + 证据类型 | [02-score-points.md](prompts/02-score-points.md) |
-| 3 目录 | 目录对齐评分点，分配字数 | [03-catalog-outline.md](prompts/03-catalog-outline.md) |
-| 4 字数 | 按分值粗分篇幅（在 03 中一起完成） | 同上 |
-| 5 草稿 | 一次只写一章，降低幻觉 | [04-chapter-draft.md](prompts/04-chapter-draft.md) |
-| 6 检查 | 废标项对照 + 高分项覆盖 | [05-risk-check.md](prompts/05-risk-check.md) |
+```mermaid
+flowchart TB
+  U[用户 / 控制台] --> D[意图路由]
+  D -->|主动任务| R[Run]
+  R --> Q[Job 队列]
+  Q --> W[Worker]
+  W --> T1[解析]
+  W --> T2[拆评分点]
+  W --> T3[目录]
+  W --> T4[写作 / 改稿]
+  W --> T5[检查]
+  W --> T6[导出]
+  T3 --> H1[人工确认目录]
+  T4 --> H2[审稿台]
+  T5 --> H2
+  H2 --> H3[导出前终审]
+  W --> E[事件账本]
+  E --> U
+```
 
-更完整方法论见 [docs/methodology.md](docs/methodology.md)，以及官网指南：[技术标怎么写](https://aiwenbiao.cn/guides/how-to-write-tech-bid)。
+### 为什么不是纯聊天框
 
-流程一览：
+| 纯聊天框 | harness agent |
+| --- | --- |
+| 一次生成全书，结构偏了全盘返工 | 先拆点、先目录，再分章写 |
+| 中断难恢复 | Run / Job 可排队、可重试 |
+| 看不清进度 | 事件账本可观测 |
+| 易编造事实 | 人工闸口 + 待补占位 |
+| 责任边界模糊 | 草稿须人审；不保证中标 |
 
-**解析 → 评分点 → 目录 → 字数分配 → 章节草稿 → 风险检查**
+### 三道人工闸口（不可跳过）
+
+1. **目录确认**：未确认不进入全书写作  
+2. **章节审稿**：草稿可改、可留版本  
+3. **导出前终审**：检查只给线索，不做「一定能过」承诺  
+
+---
+
+## 本仓库还提供什么
+
+在理解 harness 之后，你可以用本仓库的 **阶段 Prompt**，在任意 LLM（DeepSeek / GPT / Claude / 本地模型）里手工复现同一套方法：
+
+| 阶段 | Prompt |
+| --- | --- |
+| 解析 | [prompts/01-tender-parse.md](prompts/01-tender-parse.md) |
+| 拆评分点 | [prompts/02-score-points.md](prompts/02-score-points.md) |
+| 目录 | [prompts/03-catalog-outline.md](prompts/03-catalog-outline.md) |
+| 单章草稿 | [prompts/04-chapter-draft.md](prompts/04-chapter-draft.md) |
+| 风险检查 | [prompts/05-risk-check.md](prompts/05-risk-check.md) |
+
+若需要「上传招标文件 → 自动跑完 harness → 导出 Word」的在线产品，请直接用：**[https://aiwenbiao.cn](https://aiwenbiao.cn)**
+
+---
 
 ## 仓库结构
 
-- `assets/icon.png`：项目图标
-- `assets/logo.svg`：文标品牌 SVG
-- `prompts/01-tender-parse.md`：招标文件解析
-- `prompts/02-score-points.md`：评分点拆解
-- `prompts/03-catalog-outline.md`：技术标目录
-- `prompts/04-chapter-draft.md`：单章草稿
-- `prompts/05-risk-check.md`：提交前风险检查
+- `docs/harness-agent.md`：harness agent 架构与详细介绍（**重点**）
+- `docs/methodology.md`：技术标 6 步方法论摘要
+- `assets/icon.png` / `assets/logo.svg`：图标
+- `prompts/01`～`05`：各阶段 Prompt
 - `examples/sample-score-table.md`：虚构示例评分表
-- `docs/methodology.md`：方法论摘要
-- `CONTRIBUTING.md`：贡献指南
-- `LICENSE`：MIT
+- `CONTRIBUTING.md` / `LICENSE`
 
-## 快速开始（推荐路径）
+---
 
-### 0. 准备
+## 快速开始
 
-- 任意 LLM（推荐 DeepSeek、GPT、Claude；也可用本地模型）
-- 一份招标文件摘录，或至少一张评分表
-- 练手可先用 [examples/sample-score-table.md](examples/sample-score-table.md)
+### A. 先读架构（推荐）
 
-### 1. 先拆评分点（最重要）
+1. 打开 [docs/harness-agent.md](docs/harness-agent.md)
+2. 看懂：意图路由 → Run → Job → Worker → 人工闸口
+3. 再决定用官网产品，还是用本仓库 Prompt 自学
 
-1. 打开 [prompts/02-score-points.md](prompts/02-score-points.md)
-2. 把 System 与 User 复制到对话框
-3. 在 User 区粘贴你的评分表
-4. 得到：可写章节表、Top5 高分项、风险项
+### B. 用 Prompt 手工跑通一遍
 
-### 2. 定目录
+1. 练手打开 [examples/sample-score-table.md](examples/sample-score-table.md)
+2. 用 [02-score-points.md](prompts/02-score-points.md) 拆点
+3. 用 [03-catalog-outline.md](prompts/03-catalog-outline.md) 定目录
+4. 用 [04-chapter-draft.md](prompts/04-chapter-draft.md) **一次只写一章**
+5. 用 [05-risk-check.md](prompts/05-risk-check.md) 做提交前检查
 
-1. 打开 [prompts/03-catalog-outline.md](prompts/03-catalog-outline.md)
-2. 把上一步的表格贴进去
-3. 得到：二级目录、字数分配、对照表
-
-### 3. 分章写草稿
-
-1. 用 [prompts/04-chapter-draft.md](prompts/04-chapter-draft.md)
-2. **一次只写一章**，写完再换下一章
-3. 事实不足时保留「【待补：…】」，不要让模型编造
-
-### 4. 提交前检查
-
-1. 用 [prompts/05-risk-check.md](prompts/05-risk-check.md)
-2. 对照废标项与高分项
-3. **人工终审** 后再提交
-
-若已有完整招标文件，可先跑 [01-tender-parse.md](prompts/01-tender-parse.md)，再进入上述流程。
+---
 
 ## 各 Prompt 简要
 
 ### 01 招标文件解析
 
-从摘录中抽取：基本信息、废标/否决项、响应表、评分摘要、交付与工期、待确认清单。
-
+抽取基本信息、废标/否决项、响应表、评分摘要、交付与工期、待确认清单。  
 **只解析，不写正文。**
 
 ### 02 评分点拆解
 
-输出 Markdown 表，字段包括：ID、评分项、分值、类型、建议章节、证据类型、摘录、风险。
-
+输出可写章节表：ID、评分项、分值、类型、建议章节、证据类型、摘录、风险。  
 再附 Top5 高分项与易失分项。
 
 ### 03 技术标目录
 
-目录必须能回指评分点；包含字数区间与对照表。
-
+目录必须回指评分点；含字数区间与对照表。  
 **先结构，后文字。**
 
 ### 04 单章草稿
 
-按章写作；缺事实时用待补占位；禁止编造资质、合同、检测编号。
+按章写作；缺事实用「待补」占位；禁止编造资质/合同/检测编号。
 
 ### 05 提交前风险检查
 
-废标项对照、高分项覆盖、常见硬伤快检、人工必核 Top10。
+废标对照、高分覆盖、硬伤快检、人工必核 Top10。  
+**不是法律意见。**
 
-**不是法律意见，不能替代合规审核。**
+---
 
 ## 使用建议
 
-- **模型选择**：长文档解析偏大上下文窗口；章节草稿可用性价比高的模型
-- **温度**：解析与拆分偏低更稳；草稿可稍高，但仍须人工改
-- **分段输入**：招标文件过长时，先贴评分办法与废标章节，再补其他
-- **版本管理**：每次 Prompt 输出建议存成独立 Markdown，方便回溯与对比
+- **先 harness，后 Prompt**：先理解阶段机，再复制提示词
+- **模型**：解析/拆分用稳；草稿可稍活泼，但仍须人改
+- **分段输入**：标书过长时，先贴评分办法与废标章
+- **产出存档**：每阶段输出存独立 Markdown，便于回溯
+
+---
 
 ## 红线（必读）
 
-1. AI 输出只是 **草稿**，须 **人工审核** 后才可提交
-2. **不保证中标**，不做任何中标承诺
+1. AI 输出只是 **草稿**，须 **人工审核**
+2. **不保证中标**
 3. **不编造** 资质、业绩、设备参数、合同编号等事实
-4. 涉及密件、审批、价格的内容，以你司合规流程为准
+4. 密件、审批、价格以你司合规流程为准
+
+---
 
 ## 与文标产品
 
 | | 本仓库 | [文标](https://aiwenbiao.cn) |
 | --- | --- | --- |
-| 定位 | 开源 Prompt + 方法论 | 在线写标工作流 |
-| 适用 | 自学、团队复制、接入自有 LLM | 上传招标文件 → 拆点 → 导出 |
-| 入口 | 本 README | https://aiwenbiao.cn |
+| 重点 | harness 说明 + 阶段 Prompt | 在线 harness agent 工作流 |
+| 适用 | 自学架构、团队复制 Prompt、接入自有 LLM | 上传招标文件 → 拆点 → 分章 → 导出 |
+| 入口 | 本 README / [harness 详解](docs/harness-agent.md) | https://aiwenbiao.cn |
 
-两者互补：先用开源 Prompt 理解方法，再用产品提效。
+---
 
 ## 贡献
 
-欢迎提 Issue / PR：更稳的 Prompt、更好的表格模板、虚构示例与文档勘误。
-
+欢迎补充：更清晰的架构图、更稳的阶段 Prompt、虚构示例与文档勘误。  
 见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## License
@@ -168,7 +187,7 @@
 ## Links
 
 - 官网：https://aiwenbiao.cn
+- harness agent 详解：./docs/harness-agent.md
 - 技术标怎么写：https://aiwenbiao.cn/guides/how-to-write-tech-bid
 - 评分点怎么拆：https://aiwenbiao.cn/guides/split-score-points
-- 官方渠道与发布：https://aiwenbiao.cn/sources
-- GitHub：https://github.com/hanbon-labs/wenbiao-open-prompts
+- 官方渠道：https://aiwenbiao.cn/sources
