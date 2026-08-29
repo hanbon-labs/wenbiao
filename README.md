@@ -2,7 +2,7 @@
   <img src="assets/og-card.png" alt="文标" width="640" />
 </p>
 
-<h1 align="center">wenbiao-open-prompts</h1>
+<h1 align="center">wenbiao</h1>
 
 <p align="center">
   <strong>文标开源</strong>：面向招投标的 <strong>harness agent</strong> 工作流说明<br/>
