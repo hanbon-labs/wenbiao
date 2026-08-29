@@ -1,9 +1,5 @@
 <p align="center">
-  <img src="assets/og-card.png" alt="文标 · 上传招标文件，半天写出技术标首稿" width="640" />
-</p>
-
-<p align="center">
-  <img src="assets/icon.png" alt="文标" width="120" height="120" />
+  <img src="assets/og-card.png" alt="文标" width="640" />
 </p>
 
 <h1 align="center">wenbiao-open-prompts</h1>
@@ -98,9 +94,7 @@ flowchart TB
 
 - `docs/harness-agent.md`：harness agent 架构与详细介绍（**重点**）
 - `docs/methodology.md`：技术标 6 步方法论摘要
-- `assets/og-card.png`：文标分享图（OG）
-- `assets/icon.png`：文标分享方图
-- `assets/logo.svg` / `assets/logo.png`：品牌标
+- `assets/og-card.png`：文标 logo（分享图）
 - `prompts/01`～`05`：各阶段 Prompt
 - `examples/sample-score-table.md`：虚构示例评分表
 - `CONTRIBUTING.md` / `LICENSE`
