@@ -1,8 +1,18 @@
-# Sample (fictional)
+# 示例评分表（虚构，仅供练习）
 
-| ID | Item | Score |
-|----|------|------|
-| T1 | Overall technical solution | 15 |
-| T2 | Schedule | 10 |
-| Q1 | Performance | 10 |
-| C1 | Price | 30 |
+> 非真实项目。练习 Prompt 用。
+
+假设技术分 40 分：
+
+| 序号 | 评分项 | 分值 | 说明 |
+|---|---|---|---|
+| 1 | 总体技术方案 | 10 | 完整性、针对性 |
+| 2 | 实施方案与进度 | 8 | 计划可执行 |
+| 3 | 质量保证措施 | 6 | 过程与验收 |
+| 4 | 售后服务方案 | 6 | 响应时效与备件 |
+| 5 | 项目团队配置 | 5 | 岗位与经验（勿编造） |
+| 6 | 风险识别与应对 | 5 | 针对性 |
+
+练习：把上表贴进 [../prompts/02-score-points.md](../prompts/02-score-points.md)。
+
+官网：https://aiwenbiao.cn

@@ -1,7 +1,24 @@
-Contributing
+# 贡献指南
 
-1. Prompt/docs/examples only
-2. Human review; no win claims
-3. No real tenders
+感谢关注文标开源 Prompt 集。
 
-Site: https://aiwenbiao.cn
+## 可以贡献什么
+
+- 更好的 Prompt 措辞（更稳、更少幻觉）
+- 评分点拆解的表格模板
+- 虚构示例（不得含真实密件 / 真实投标文件）
+- 文档勘误与链接修正
+
+## 不要贡献什么
+
+- 文标产品核心代码、密钥、内部 API
+- 真实招标文件全文或可识别的敏感信息
+- 声称「保证中标」的文案
+
+## 提 PR 前
+
+1. 确认文件为 UTF-8（无 BOM）
+2. 在 PR 说明里写清改了哪条 Prompt、为什么更稳
+3. 保持红线：人工审核、不保证中标、不编造事实
+
+官网：https://aiwenbiao.cn
