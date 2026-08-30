@@ -17,6 +17,13 @@
   <a href="LICENSE">MIT</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/hanbon-labs/wenbiao"><img src="https://img.shields.io/github/stars/hanbon-labs/wenbiao?style=social" alt="GitHub Stars" /></a>
+  <a href="https://github.com/hanbon-labs/wenbiao/network/members"><img src="https://img.shields.io/github/forks/hanbon-labs/wenbiao?style=social" alt="GitHub Forks" /></a>
+  <a href="https://github.com/hanbon-labs/wenbiao/watchers"><img src="https://img.shields.io/github/watchers/hanbon-labs/wenbiao?style=social" alt="GitHub Watch" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT" /></a>
+</p>
+
 ---
 
 ## 这个仓库解决什么问题
@@ -31,6 +38,8 @@
 若你要「上传招标文件 → 自动拆点 → 分章写 → 导出 Word」，请用官网：[https://aiwenbiao.cn](https://aiwenbiao.cn)
 
 > 红线：AI 输出只是草稿，须人工审核；不保证中标；不编造资质/业绩/检测编号。
+如果这套工作流对你有帮助，欢迎 [Star](https://github.com/hanbon-labs/wenbiao) / [Fork](https://github.com/hanbon-labs/wenbiao/fork)——详见下文「如果觉得有用」。
+
 
 ---
 
@@ -175,6 +184,19 @@ wenbiao/
 4. 密件、审批、价格以你司合规流程为准
 
 ---
+
+---
+
+## 如果觉得有用
+
+这套「先拆评分点、再写技术标」的 Prompt 工作流是开源的（MIT）。若它帮你省掉一次返工或找到可用的拆解顺序：
+
+1. **Star** 一下本仓库（右上角）——方便以后找回，也让更多做标书的人搜到
+2. **Fork** 到自己账号——按行业/公司口径改 Prompt，不用从零搭
+3. **Watch** → Custom（可选 Releases）——看新版本与示例更新
+4. 有场景或改进意见：开 [Issue](https://github.com/hanbon-labs/wenbiao/issues) 或 [Discussion](https://github.com/hanbon-labs/wenbiao/discussions)
+
+> Star / Fork 不收费，也不等于保证中标；AI 草稿仍须人工审核。
 
 ## 贡献 / License / Links
 
