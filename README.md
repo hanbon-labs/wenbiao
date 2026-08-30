@@ -196,6 +196,12 @@ wenbiao/
 
 > Star / Fork 不收费，也不等于保证中标；AI 草稿仍须人工审核。
 
+## 友链 / 社区认可
+
+本项目积极参与并认可 [LINUX DO](https://linux.do) 社区（[linux.do](https://linux.do)）。
+
+---
+
 ## 贡献 / License / Links
 
 欢迎补充更稳的 Prompt、虚构示例与文档勘误，见 [CONTRIBUTING.md](CONTRIBUTING.md)。
@@ -207,3 +213,4 @@ wenbiao/
 - 拆评分点方法：https://aiwenbiao.cn/guides/split-score-points
 - 技术标怎么写：https://aiwenbiao.cn/guides/how-to-write-tech-bid
 - 官方渠道：https://aiwenbiao.cn/sources
+- LINUX DO：https://linux.do
