@@ -29,12 +29,14 @@
 
 【粘贴评分表 / 评分办法】
 
-## 示例输入
+## 示例输入 / 示例输出
 
-见 [../examples/sample-score-table.md](../examples/sample-score-table.md)
+- 输入：[../examples/sample-score-table.md](../examples/sample-score-table.md)
+- 输出对照：[../examples/sample-score-breakdown.md](../examples/sample-score-breakdown.md)
 
 ## 下一步
 
 用 [03-catalog-outline.md](03-catalog-outline.md) 生成目录。
 
-官网：https://aiwenbiao.cn
+官网：https://aiwenbiao.cn  
+方法文：https://aiwenbiao.cn/guides/split-score-points

@@ -13,6 +13,7 @@
 | 5 | 项目团队配置 | 5 | 岗位与经验（勿编造） |
 | 6 | 风险识别与应对 | 5 | 针对性 |
 
-练习：把上表贴进 [../prompts/02-score-points.md](../prompts/02-score-points.md)。
+练习：把上表贴进 [../prompts/02-score-points.md](../prompts/02-score-points.md)。  
+对照输出：[sample-score-breakdown.md](sample-score-breakdown.md)
 
 官网：https://aiwenbiao.cn
